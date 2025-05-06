@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ClientTrackPro.UI.Views.Templates.ChatParticipantTemplate">
+    <Grid Padding="5" ColumnSpacing="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Participant Avatar -->
+        <Image Grid.Column="0"
+               Source="{Binding Avatar}"
+               WidthRequest="30"
+               HeightRequest="30"
+               Aspect="AspectFill">
+            <Image.Clip>
+                <EllipseGeometry Center="15,15" RadiusX="15" RadiusY="15"/>
+            </Image.Clip>
+        </Image>
+
+        <!-- Username -->
+        <Label Grid.Column="1"
+               Text="{Binding Username}"
+               VerticalOptions="Center"
+               TextColor="{StaticResource PrimaryTextColor}"/>
+    </Grid>
+</ContentView> 

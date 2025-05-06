@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ClientTrackPro.UI.Views.Templates.ChatMessageTemplate">
+    <Grid Padding="10" ColumnSpacing="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- User Avatar -->
+        <Image Grid.Column="0"
+               Source="{Binding UserAvatar}"
+               WidthRequest="40"
+               HeightRequest="40"
+               Aspect="AspectFill">
+            <Image.Clip>
+                <EllipseGeometry Center="20,20" RadiusX="20" RadiusY="20"/>
+            </Image.Clip>
+        </Image>
+
+        <!-- Message Content -->
+        <StackLayout Grid.Column="1" Spacing="2">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Username -->
+                <Label Grid.Column="0"
+                       Text="{Binding Username}"
+                       FontAttributes="Bold"
+                       TextColor="{StaticResource PrimaryTextColor}"/>
+
+                <!-- Timestamp -->
+                <Label Grid.Column="1"
+                       Text="{Binding Timestamp, StringFormat='{0:HH:mm}'}"
+                       HorizontalOptions="End"
+                       TextColor="{StaticResource SecondaryTextColor}"
+                       FontSize="12"/>
+            </Grid>
+
+            <!-- Message -->
+            <Label Text="{Binding Message}"
+                   TextColor="{StaticResource PrimaryTextColor}"
+                   LineBreakMode="WordWrap"/>
+        </StackLayout>
+    </Grid>
+</ContentView> 

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="ClientTrackPro.UI.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:ClientTrackPro.UI.Views"
+    Shell.FlyoutBehavior="Disabled">
+
+    <TabBar>
+        <Tab Title="Dashboard" Icon="dashboard.png">
+            <ShellContent
+                Title="Dashboard"
+                ContentTemplate="{DataTemplate views:DashboardPage}"
+                Route="Dashboard" />
+        </Tab>
+
+        <Tab Title="Streaming" Icon="streaming.png">
+            <ShellContent
+                Title="Streaming"
+                ContentTemplate="{DataTemplate views:StreamingPage}"
+                Route="Streaming" />
+        </Tab>
+
+        <Tab Title="Chat" Icon="chat.png">
+            <ShellContent
+                Title="Chat"
+                ContentTemplate="{DataTemplate views:ChatPage}"
+                Route="Chat" />
+        </Tab>
+
+        <Tab Title="Media" Icon="media.png">
+            <ShellContent
+                Title="Media"
+                ContentTemplate="{DataTemplate views:MediaPage}"
+                Route="Media" />
+        </Tab>
+
+        <Tab Title="Analytics" Icon="analytics.png">
+            <ShellContent
+                Title="Analytics"
+                ContentTemplate="{DataTemplate views:AnalyticsPage}"
+                Route="Analytics" />
+        </Tab>
+
+        <Tab Title="Settings" Icon="settings.png">
+            <ShellContent
+                Title="Settings"
+                ContentTemplate="{DataTemplate views:SettingsPage}"
+                Route="Settings" />
+        </Tab>
+
+        <Tab Title="Admin" Icon="admin.png" IsVisible="{Binding IsAdmin}">
+            <ShellContent
+                Title="Admin"
+                ContentTemplate="{DataTemplate views:AdminPage}"
+                Route="Admin" />
+        </Tab>
+    </TabBar>
+
+</Shell> 

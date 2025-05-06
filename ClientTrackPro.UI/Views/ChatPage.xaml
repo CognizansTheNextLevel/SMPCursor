@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ClientTrackPro.UI.Views.ChatPage"
+             Title="Chat">
+    <Grid RowDefinitions="Auto,*" Padding="20">
+        <!-- Chat Controls -->
+        <VerticalStackLayout Grid.Row="0" Spacing="10">
+            <Label Text="Chat Management" 
+                   FontSize="24" 
+                   FontAttributes="Bold"/>
+            
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                <Button Text="Start Chat" 
+                        Command="{Binding StartChatCommand}"
+                        BackgroundColor="{StaticResource Primary}"/>
+                <Button Text="End Chat" 
+                        Command="{Binding EndChatCommand}"
+                        BackgroundColor="{StaticResource Danger}"/>
+            </Grid>
+
+            <Frame Padding="15" Margin="0,10">
+                <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto" ColumnSpacing="10" RowSpacing="5">
+                    <Label Grid.Row="0" Grid.Column="0" Text="Platform:" VerticalOptions="Center"/>
+                    <Picker Grid.Row="0" Grid.Column="1" 
+                            ItemsSource="{Binding Platforms}"
+                            SelectedItem="{Binding SelectedPlatform}"/>
+
+                    <Label Grid.Row="1" Grid.Column="0" Text="Chat Room:" VerticalOptions="Center"/>
+                    <Picker Grid.Row="1" Grid.Column="1" 
+                            ItemsSource="{Binding ChatRooms}"
+                            SelectedItem="{Binding SelectedChatRoom}"/>
+                </Grid>
+            </Frame>
+        </VerticalStackLayout>
+
+        <!-- Chat Interface -->
+        <Grid Grid.Row="1" RowDefinitions="*,Auto" ColumnDefinitions="*,Auto">
+            <!-- Chat Messages -->
+            <CollectionView Grid.Row="0" Grid.Column="0"
+                          ItemsSource="{Binding ChatMessages}"
+                          Margin="0,0,10,0">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid ColumnDefinitions="Auto,*" Padding="5">
+                            <Image Grid.Column="0" 
+                                   Source="{Binding UserAvatar}" 
+                                   HeightRequest="32" 
+                                   WidthRequest="32"/>
+                            <VerticalStackLayout Grid.Column="1" Spacing="2">
+                                <Label Text="{Binding Username}" 
+                                       FontAttributes="Bold"/>
+                                <Label Text="{Binding Message}" 
+                                       FontSize="14"/>
+                                <Label Text="{Binding Timestamp}" 
+                                       FontSize="10" 
+                                       TextColor="Gray"/>
+                            </VerticalStackLayout>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <!-- Chat Participants -->
+            <Frame Grid.Row="0" Grid.Column="1" 
+                   Padding="10" 
+                   WidthRequest="200">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Participants" 
+                           FontSize="18" 
+                           FontAttributes="Bold"/>
+                    
+                    <CollectionView ItemsSource="{Binding Participants}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid ColumnDefinitions="Auto,*" Padding="5">
+                                    <Image Grid.Column="0" 
+                                           Source="{Binding Avatar}" 
+                                           HeightRequest="24" 
+                                           WidthRequest="24"/>
+                                    <Label Grid.Column="1" 
+                                           Text="{Binding Username}" 
+                                           VerticalOptions="Center"/>
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Chat Input -->
+            <Grid Grid.Row="1" Grid.ColumnSpan="2" 
+                  ColumnDefinitions="*,Auto,Auto" 
+                  ColumnSpacing="10" 
+                  Margin="0,10,0,0">
+                <Entry Grid.Column="0" 
+                       Placeholder="Type a message..."
+                       Text="{Binding ChatMessage}"/>
+                <Button Grid.Column="1" 
+                        Text="Send" 
+                        Command="{Binding SendMessageCommand}"
+                        BackgroundColor="{StaticResource Primary}"/>
+                <Button Grid.Column="2" 
+                        Text="Emoji" 
+                        Command="{Binding ShowEmojiCommand}"
+                        BackgroundColor="{StaticResource Secondary}"/>
+            </Grid>
+        </Grid>
+    </Grid>
+</ContentPage> 

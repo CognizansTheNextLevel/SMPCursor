@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ClientTrackPro.UI.Views.AdminPage"
+             Title="Admin Dashboard">
+    <Grid RowDefinitions="Auto,*" Padding="20">
+        <!-- Admin Controls -->
+        <VerticalStackLayout Grid.Row="0" Spacing="10">
+            <Label Text="Admin Dashboard" 
+                   FontSize="24" 
+                   FontAttributes="Bold"/>
+            
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                <Button Text="Create Gift Code" 
+                        Command="{Binding CreateGiftCodeCommand}"
+                        BackgroundColor="{StaticResource Primary}"/>
+                <Button Text="View Reports" 
+                        Command="{Binding ViewReportsCommand}"
+                        BackgroundColor="{StaticResource Primary}"/>
+            </Grid>
+        </VerticalStackLayout>
+
+        <!-- Main Content -->
+        <ScrollView Grid.Row="1">
+            <Grid RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="*,*" RowSpacing="20" ColumnSpacing="20">
+                <!-- User Management -->
+                <Frame Grid.Row="0" Grid.ColumnSpan="2" Padding="15">
+                    <VerticalStackLayout Spacing="10">
+                        <Label Text="User Management" FontSize="18" FontAttributes="Bold"/>
+                        <CollectionView ItemsSource="{Binding Users}">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid ColumnDefinitions="Auto,*,Auto,Auto" Padding="5">
+                                        <Label Grid.Column="0" 
+                                               Text="{Binding Username}" 
+                                               VerticalOptions="Center"/>
+                                        <Label Grid.Column="1" 
+                                               Text="{Binding SubscriptionTier}" 
+                                               VerticalOptions="Center"/>
+                                        <Button Grid.Column="2" 
+                                                Text="Update Subscription"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.UpdateSubscriptionCommand}"
+                                                CommandParameter="{Binding Id}"
+                                                BackgroundColor="{StaticResource Primary}"/>
+                                        <Button Grid.Column="3" 
+                                                Text="Deactivate"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.DeactivateUserCommand}"
+                                                CommandParameter="{Binding Id}"
+                                                BackgroundColor="{StaticResource Danger}"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </VerticalStackLayout>
+                </Frame>
+
+                <!-- Gift Codes -->
+                <Frame Grid.Row="1" Grid.Column="0" Padding="15">
+                    <VerticalStackLayout Spacing="10">
+                        <Label Text="Gift Codes" FontSize="18" FontAttributes="Bold"/>
+                        <CollectionView ItemsSource="{Binding GiftCodes}">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid ColumnDefinitions="*,Auto,Auto" Padding="5">
+                                        <Label Grid.Column="0" 
+                                               Text="{Binding Code}" 
+                                               VerticalOptions="Center"/>
+                                        <Label Grid.Column="1" 
+                                               Text="{Binding SubscriptionTier}" 
+                                               VerticalOptions="Center"/>
+                                        <Button Grid.Column="2" 
+                                                Text="Deactivate"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.DeactivateGiftCodeCommand}"
+                                                CommandParameter="{Binding Code}"
+                                                BackgroundColor="{StaticResource Danger}"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </VerticalStackLayout>
+                </Frame>
+
+                <!-- Payment Records -->
+                <Frame Grid.Row="1" Grid.Column="1" Padding="15">
+                    <VerticalStackLayout Spacing="10">
+                        <Label Text="Recent Payments" FontSize="18" FontAttributes="Bold"/>
+                        <CollectionView ItemsSource="{Binding PaymentRecords}">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid ColumnDefinitions="Auto,*,Auto" Padding="5">
+                                        <Label Grid.Column="0" 
+                                               Text="{Binding PaymentDate, StringFormat='{0:MM/dd/yyyy}'}" 
+                                               VerticalOptions="Center"/>
+                                        <Label Grid.Column="1" 
+                                               Text="{Binding Amount, StringFormat='{0:C}'}" 
+                                               VerticalOptions="Center"/>
+                                        <Label Grid.Column="2" 
+                                               Text="{Binding Status}" 
+                                               VerticalOptions="Center"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </VerticalStackLayout>
+                </Frame>
+
+                <!-- Statistics -->
+                <Frame Grid.Row="2" Grid.ColumnSpan="2" Padding="15">
+                    <Grid ColumnDefinitions="*,*,*" ColumnSpacing="15">
+                        <VerticalStackLayout Grid.Column="0" Spacing="5">
+                            <Label Text="Total Revenue" FontSize="14" TextColor="Gray"/>
+                            <Label Text="{Binding TotalRevenue, StringFormat='{0:C}'}" FontSize="24" FontAttributes="Bold"/>
+                        </VerticalStackLayout>
+                        <VerticalStackLayout Grid.Column="1" Spacing="5">
+                            <Label Text="Active Users" FontSize="14" TextColor="Gray"/>
+                            <Label Text="{Binding ActiveUsers}" FontSize="24" FontAttributes="Bold"/>
+                        </VerticalStackLayout>
+                        <VerticalStackLayout Grid.Column="2" Spacing="5">
+                            <Label Text="Active Gift Codes" FontSize="14" TextColor="Gray"/>
+                            <Label Text="{Binding ActiveGiftCodes}" FontSize="24" FontAttributes="Bold"/>
+                        </VerticalStackLayout>
+                    </Grid>
+                </Frame>
+            </Grid>
+        </ScrollView>
+    </Grid>
+</ContentPage> 

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ClientTrackPro.UI.Views.DashboardPage"
+             Title="Dashboard">
+    <Grid RowDefinitions="Auto,*" Padding="20">
+        <!-- Welcome Section -->
+        <VerticalStackLayout Grid.Row="0" Spacing="10">
+            <Label Text="{Binding WelcomeMessage}" 
+                   FontSize="24" 
+                   FontAttributes="Bold"/>
+            <Label Text="{Binding LastLoginMessage}" 
+                   FontSize="16" 
+                   TextColor="Gray"/>
+        </VerticalStackLayout>
+
+        <!-- Main Content -->
+        <ScrollView Grid.Row="1">
+            <Grid RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="*,*" RowSpacing="20" ColumnSpacing="20">
+                <!-- Key Metrics -->
+                <Frame Grid.Row="0" Grid.ColumnSpan="2" Padding="15">
+                    <Grid ColumnDefinitions="*,*,*,*" ColumnSpacing="15">
+                        <VerticalStackLayout Grid.Column="0" Spacing="5">
+                            <Label Text="Total Followers" FontSize="14" TextColor="Gray"/>
+                            <Label Text="{Binding TotalFollowers}" FontSize="24" FontAttributes="Bold"/>
+                        </VerticalStackLayout>
+                        <VerticalStackLayout Grid.Column="1" Spacing="5">
+                            <Label Text="Active Platforms" FontSize="14" TextColor="Gray"/>
+                            <Label Text="{Binding ActivePlatforms}" FontSize="24" FontAttributes="Bold"/>
+                        </VerticalStackLayout>
+                        <VerticalStackLayout Grid.Column="2" Spacing="5">
+                            <Label Text="Brand Assets" FontSize="14" TextColor="Gray"/>
+                            <Label Text="{Binding TotalAssets}" FontSize="24" FontAttributes="Bold"/>
+                        </VerticalStackLayout>
+                        <VerticalStackLayout Grid.Column="3" Spacing="5">
+                            <Label Text="Subscription" FontSize="14" TextColor="Gray"/>
+                            <Label Text="{Binding SubscriptionTier}" FontSize="24" FontAttributes="Bold"/>
+                        </VerticalStackLayout>
+                    </Grid>
+                </Frame>
+
+                <!-- Platform Status -->
+                <Frame Grid.Row="1" Grid.Column="0" Padding="15">
+                    <VerticalStackLayout Spacing="10">
+                        <Label Text="Platform Status" FontSize="18" FontAttributes="Bold"/>
+                        <CollectionView ItemsSource="{Binding PlatformConnections}">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid ColumnDefinitions="Auto,*,Auto" Padding="5">
+                                        <Image Grid.Column="0" 
+                                               Source="{Binding PlatformIcon}" 
+                                               HeightRequest="24" 
+                                               WidthRequest="24"/>
+                                        <Label Grid.Column="1" 
+                                               Text="{Binding PlatformName}" 
+                                               VerticalOptions="Center"/>
+                                        <Label Grid.Column="2" 
+                                               Text="{Binding Status}" 
+                                               TextColor="{Binding StatusColor}"
+                                               VerticalOptions="Center"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </VerticalStackLayout>
+                </Frame>
+
+                <!-- Recent Activity -->
+                <Frame Grid.Row="1" Grid.Column="1" Padding="15">
+                    <VerticalStackLayout Spacing="10">
+                        <Label Text="Recent Activity" FontSize="18" FontAttributes="Bold"/>
+                        <CollectionView ItemsSource="{Binding RecentActivities}">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid ColumnDefinitions="Auto,*" Padding="5">
+                                        <Image Grid.Column="0" 
+                                               Source="{Binding ActivityIcon}" 
+                                               HeightRequest="24" 
+                                               WidthRequest="24"/>
+                                        <VerticalStackLayout Grid.Column="1" Spacing="2">
+                                            <Label Text="{Binding Title}" FontAttributes="Bold"/>
+                                            <Label Text="{Binding Description}" FontSize="12" TextColor="Gray"/>
+                                            <Label Text="{Binding Timestamp}" FontSize="10" TextColor="Gray"/>
+                                        </VerticalStackLayout>
+                                    </Grid>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </VerticalStackLayout>
+                </Frame>
+
+                <!-- Quick Actions -->
+                <Frame Grid.Row="2" Grid.ColumnSpan="2" Padding="15">
+                    <VerticalStackLayout Spacing="10">
+                        <Label Text="Quick Actions" FontSize="18" FontAttributes="Bold"/>
+                        <Grid ColumnDefinitions="*,*,*,*" ColumnSpacing="15">
+                            <Button Text="Connect Platform" 
+                                    Command="{Binding ConnectPlatformCommand}"
+                                    BackgroundColor="{StaticResource Primary}"/>
+                            <Button Text="Upload Asset" 
+                                    Command="{Binding UploadAssetCommand}"
+                                    BackgroundColor="{StaticResource Primary}"/>
+                            <Button Text="View Analytics" 
+                                    Command="{Binding ViewAnalyticsCommand}"
+                                    BackgroundColor="{StaticResource Primary}"/>
+                            <Button Text="Settings" 
+                                    Command="{Binding OpenSettingsCommand}"
+                                    BackgroundColor="{StaticResource Primary}"/>
+                        </Grid>
+                    </VerticalStackLayout>
+                </Frame>
+            </Grid>
+        </ScrollView>
+    </Grid>
+</ContentPage> 
