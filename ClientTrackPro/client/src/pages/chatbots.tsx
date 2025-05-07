@@ -90,13 +90,42 @@ const ChatbotsPage: React.FC = () => {
     setTimers(timers.map((timer) => (timer.id === id ? { ...timer, [field]: value } : timer)))
   }
 
+  const addFilter = () => {
+    const newId = filters.length > 0 ? Math.max(...filters.map((f) => f.id)) + 1 : 1
+    setFilters([...filters, { id: newId, name: "", action: "delete", enabled: true }])
+    setEditingFilter(newId)
+  }
+
+  const deleteFilter = (id: number) => {
+    setFilters(filters.filter((filter) => filter.id !== id))
+    if (editingFilter === id) {
+      setEditingFilter(null)
+    }
+  }
+
+  const updateFilter = (
+    id: number,
+    field: "name" | "action" | "enabled",
+    value: string | boolean,
+  ) => {
+    setFilters(filters.map((filter) => (filter.id === id ? { ...filter, [field]: value } : filter)))
+  }
+
   return (
     <DashboardLayout title="Chat Bots" subtitle="Manage your automated chat messaging">
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 space-y-6">
           <Tabs value={activeTab} onValueChange={setActiveTab}>
             <TabsList className="w-full">
-              <TabsTrigger value="commands" className="flex-1">
+              <TabsTrigger
+                value="commands"
+                className="flex-1"
+                onClick={() => {
+                  if (editingCommand) {
+                    setEditingCommand(null)
+                  }
+                }}
+              >
                 <MessageSquare size={16} className="mr-2" />
                 Commands
               </TabsTrigger>
@@ -104,7 +133,15 @@ const ChatbotsPage: React.FC = () => {
                 <Timer size={16} className="mr-2" />
                 Timers
               </TabsTrigger>
-              <TabsTrigger value="filters" className="flex-1">
+              <TabsTrigger
+                value="filters"
+                className="flex-1"
+                onClick={() => {
+                  if (editingFilter) {
+                    setEditingFilter(null)
+                  }
+                }}
+              >
                 <Shield size={16} className="mr-2" />
                 Chat Filters
               </TabsTrigger>
